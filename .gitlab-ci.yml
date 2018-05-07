@@ -48,4 +48,4 @@ apply:
     - plan
   when: manual
   only:
-- master
+    - master
