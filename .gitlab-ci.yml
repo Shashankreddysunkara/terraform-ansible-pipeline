@@ -5,10 +5,6 @@ image:
 variables:
   PLAN: plan.tfplan
 
-cache:
-  paths:
-    - .terraform
-
 before_script:
   - terraform --version
   - terraform init
