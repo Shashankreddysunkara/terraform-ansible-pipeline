@@ -1,8 +1,5 @@
 image:
-  name: hashicorp/terraform:light
-  entrypoint:
-    - '/usr/bin/env'
-    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  name: sarlindo/terraform-ansible-docker-image
 
 # Default output file for Terraform plan
 variables:
@@ -13,7 +10,6 @@ cache:
     - .terraform
 
 before_script:
-  - pip install ansible
   - terraform --version
   - terraform init
 
