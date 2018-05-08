@@ -307,9 +307,9 @@ def main():
         needs_application = True
         if variables_file:
             command.extend(var_files)
-    elif plan_file and os.path.exists(plan_file):
+    elif plan_file and (os.path.exists(plan_file) or os.path.join(os.getcwd(), plan_file)):
         command.append(plan_file)
-    elif plan_file and not os.path.exists(plan_file):
+    elif plan_file and (not os.path.exists(plan_file) or not os.path.join(os.getcwd(), plan_file)):
         module.fail_json(msg='Could not find plan_file "{0}", check the path and try again.'.format(plan_file))
     else:
         plan_file, needs_application = build_plan(command[0], project_path, state_file,var_files=var_files)

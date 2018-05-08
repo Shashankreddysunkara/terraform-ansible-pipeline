@@ -1,12 +1,6 @@
 image:
   name: sarlindo/terraform-ansible-docker-image
 
-
-
-# Default output file for Terraform plan
-variables:
-  PLAN: plan.tfplan
-
 before_script:
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
   - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
@@ -31,7 +25,7 @@ plan:
   artifacts:
     name: plan
     paths:
-      - /tmp/a.out
+      - plan.out
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.

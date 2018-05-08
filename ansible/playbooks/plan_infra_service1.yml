@@ -15,7 +15,7 @@
     - name: Deploy Infra | Terraform Plan
       terraform:
         project_path: "../../terraform-live/stage/us-east-1/service1"
-        plan_file: "/tmp/a.out"
+        plan_file: "./plan.out"
         force_init: True
         variables_file: 
           - "../../stage.tfvars"
