@@ -26,7 +26,7 @@ stages:
 plan:
   stage: plan
   script:
-    - cd $PROJECT_NAME/ansible
+    - cd ansible
     - ansible-playbook -i "localhost," -c local playbooks/plan_infra_service1.yml
   artifacts:
     name: plan
