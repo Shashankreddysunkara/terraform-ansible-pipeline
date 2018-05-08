@@ -26,7 +26,8 @@ plan:
     - popd
   artifacts:
     name: plan
-    untracked: true
+    paths:
+      - $CI_PROJECT_DIR/terraform-ansible-pipeline/terraform-live/stage/us-east-1/service1/plan.out
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
