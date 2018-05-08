@@ -1,6 +1,7 @@
 image:
   name: sarlindo/terraform-ansible-docker-image
 
+
 # Default output file for Terraform plan
 variables:
   PLAN: plan.tfplan
