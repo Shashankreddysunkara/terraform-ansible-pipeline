@@ -22,8 +22,12 @@
         state: planned
       delegate_to: localhost
       register: terraformoutputplan
- 
+
+    - name: Deploy Infra | Debug Diff
+      debug: var=terraformoutputplan.stdout_lines
+
     - name: Deploy Infra | Write Plan Diff to file
-      shell: echo "{{ item }}" >> ../../terraform-live/stage/us-east-1/service1/plan_diff.txt
-      with_items: "{{ terraformoutputplan.stdout_lines }}"
+      copy: 
+        content: "{{ terraformoutputplan.stdout }}"
+        dest: ../../terraform-live/stage/us-east-1/service1/plan_diff.txt
       delegate_to: localhost
