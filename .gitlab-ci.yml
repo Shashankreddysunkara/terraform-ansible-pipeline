@@ -26,8 +26,7 @@ plan:
     - popd
   artifacts:
     name: plan
-    paths:
-      - "*/plan.out"
+    untracked: true
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
