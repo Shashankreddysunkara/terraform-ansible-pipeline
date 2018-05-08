@@ -7,31 +7,34 @@ variables:
   PLAN: plan.tfplan
 
 before_script:
+  - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
+  - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
+  - aws configure set region $AWS_REGION --profile default
+  - aws configure set format text --profile default
   - terraform --version
-  - terraform init
+  - ansible --version
 
 stages:
-  - validate
-  - build
-  - deploy
+  - plan
 
-validate:
+.validate:
   stage: validate
   script:
     - terraform validate
 
 plan:
-  stage: build
+  stage: plan
   script:
-    - terraform plan -out=$PLAN
+    - cd $PROJECT_NAME/ansible
+    - ansible-playbook -i "localhost," -c local playbooks/plan_infra_service1.yml
   artifacts:
     name: plan
     paths:
-      - $PLAN
+      - /tmp/a.out
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
-apply:
+.apply:
   stage: deploy
   environment:
     name: production
