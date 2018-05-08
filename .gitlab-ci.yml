@@ -20,7 +20,7 @@ stages:
 plan:
   stage: plan
   script:
-    - pushd pwd
+    - pushd .
     - cd ansible
     - ansible-playbook -i "localhost," -c local playbooks/plan_infra_service1.yml
     - popd
