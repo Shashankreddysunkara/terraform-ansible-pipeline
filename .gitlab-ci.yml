@@ -20,12 +20,14 @@ stages:
 plan:
   stage: plan
   script:
+    - pushd pwd
     - cd ansible
     - ansible-playbook -i "localhost," -c local playbooks/plan_infra_service1.yml
+    - popd
   artifacts:
     name: plan
     paths:
-      - plan.out
+      - "*/plan.out"
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
