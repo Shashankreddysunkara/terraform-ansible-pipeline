@@ -210,16 +210,17 @@ def build_plan(bin_path, project_path, state_file, variables_args=None, plan_pat
          command.extend(variables_args)
 
     rc, out, err = module.run_command(command, cwd=project_path)
+    #open("/tmp/arlindo.txt", "a").write(out)
 
     if rc == 0:
         # no changes
-        return plan_path, False
+        return plan_path, out, False
     elif rc == 1:
         # failure to plan
         module.fail_json(msg='Terraform plan could not be created\r\nSTDOUT: {0}\r\n\r\nSTDERR: {1}'.format(out, err))
     elif rc == 2:
         # changes, but successful
-        return plan_path, True
+        return plan_path, out, True
 
     module.fail_json(msg='Terraform plan failed with unexpected exit code {0}. \r\nSTDOUT: {1}\r\n\r\nSTDERR: {2}'.format(rc, out, err))
 
@@ -301,7 +302,7 @@ def main():
     if state == 'planned':
         if variables_file:
            command.extend(var_files)
-        plan_file, needs_application = build_plan(command[0], project_path, state_file, variables_args, plan_path=plan_file,var_files=var_files)
+        plan_file, out, needs_application = build_plan(command[0], project_path, state_file, variables_args, plan_path=plan_file,var_files=var_files)
     if state == 'absent':
         # deleting cannot use a statefile
         needs_application = True
@@ -312,7 +313,7 @@ def main():
     elif plan_file and (not os.path.exists(plan_file) or not os.path.join(os.getcwd(), plan_file)):
         module.fail_json(msg='Could not find plan_file "{0}", check the path and try again.'.format(plan_file))
     else:
-        plan_file, needs_application = build_plan(command[0], project_path, state_file,var_files=var_files)
+        plan_file, out, needs_application = build_plan(command[0], project_path, state_file,var_files=var_files)
         command.append(plan_file)
         if variables_file:
             command.extend(var_files)
@@ -328,8 +329,9 @@ def main():
             )
     else:
         changed = False
-        out, err = '', ''
-
+        #out, err = '', ''
+        err = ''
+        
     outputs_command = [command[0], 'output', '-no-color', '-json'] + _state_args(state_file)
     rc, outputs_text, outputs_err = module.run_command(outputs_command, cwd=project_path)
 
