@@ -1,0 +1,3 @@
+---
+ans_aws_tag_owner: "arlindo santos"
+ans_aws_tag_environment: "{{ ans_environment }}"

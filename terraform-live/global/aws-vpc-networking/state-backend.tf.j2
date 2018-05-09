@@ -1,0 +1,15 @@
+provider "aws" {
+  region = "{{ ans_aws_provider_region }}"
+  profile = "{{ ans_aws_profile }}"
+}
+
+terraform {
+  backend "s3" {
+    encrypt = true
+    bucket = "{{ ans_terraform_s3_state_bucket }}"
+    key = "{{ ans_terraform_aws_vpc_networking_nonprod_state_key }}"
+    region = "{{ ans_terraform_state_aws_region }}"
+    profile = "{{ ans_aws_profile }}"
+    dynamodb_table = "{{ ans_terraform_dynamodb_locktable_name }}"
+  }
+}
