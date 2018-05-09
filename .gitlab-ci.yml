@@ -12,34 +12,33 @@ before_script:
 
 stages:
   - plan
-
-.validate:
-  stage: validate
-  script:
-    - terraform validate
+  - deploy
 
 plan:
   stage: plan
   script:
     - pushd .
     - cd ansible
-    - ansible-playbook -i "localhost," -c local playbooks/plan_infra_service1.yml
+    - ansible-playbook -i "localhost," -c local playbooks/plan_infra_nonprod_vpc.yml
     - popd
   artifacts:
     name: plan
     paths:
-      - $CI_PROJECT_DIR/terraform-live/stage/us-east-1/service1/plan*
+      - $CI_PROJECT_DIR/terraform-live/global/aws-vpc-networking/plan*
+  only:
+    - master  
 
-# Separate apply job for manual launching Terraform as it can be destructive
-# action.
-.apply:
+deploy_staging:
   stage: deploy
-  environment:
-    name: production
   script:
-    - terraform apply -input=false $PLAN
+    - pushd .
+    - cd ansible
+    - ansible-playbook -i "localhost," -c local playbooks/apply_infra_nonprod_vpc.yml
+    - popd
   dependencies:
     - plan
-  when: manual
+  when: on_success
+  environment:
+    name: staging
   only:
     - master
