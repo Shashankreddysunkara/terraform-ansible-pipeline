@@ -25,8 +25,8 @@ plan:
   stage: plan
   script:
     - pushd .
-    - cd ansible/scripts
-    - chmod +x *
+    - cd ansible
+    - chmod +x /scripts/*
     - ./scripts/plan_service1.sh 
     - popd
   artifacts:
@@ -41,8 +41,8 @@ deploy_staging:
   stage: deploy
   script:
     - pushd .
-    - cd ansible/scripts
-    - chmod +x *
+    - cd ansible
+    - chmod +x /scripts/*
     - ./scripts/deploy_service1.sh
     - popd
   dependencies:
