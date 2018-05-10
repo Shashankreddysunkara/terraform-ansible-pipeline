@@ -1,6 +1,6 @@
 module "security-group-mysql" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "1.22.0"
+  source  = "{{ ans_aws_sg_module_source }}"
+  version = "{{ ans_aws_sg_module_version }}"
 
   name        = "{{ans_environment}}-{{ans_app_name}}-mysql-sg"
   vpc_id      = "${module.vpc.vpc_id}"
@@ -20,8 +20,8 @@ module "security-group-mysql" {
   egress_rules = ["all-all"]
 }
 module "security-group-ssh" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "1.22.0"
+  source  = "{{ ans_aws_sg_module_source }}"
+  version = "{{ ans_aws_sg_module_version }}"
 
   name        = "{{ans_environment}}-{{ans_app_name}}-ssh-sg"
   vpc_id      = "${module.vpc.vpc_id}"
@@ -41,8 +41,8 @@ module "security-group-ssh" {
  egress_rules = ["all-all"]
 }
 module "security-group-app" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "1.22.0"
+  source  = "{{ ans_aws_sg_module_source }}"
+  version = "{{ ans_aws_sg_module_version }}"
 
   name        = "{{ans_environment}}-{{ans_app_name}}-app-sg"
   vpc_id      = "${module.vpc.vpc_id}"
@@ -67,8 +67,8 @@ module "security-group-app" {
 }
 
 module "security-group-elb" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "1.22.0"
+  source  = "{{ ans_aws_sg_module_source }}"
+  version = "{{ ans_aws_sg_module_version }}"
 
   name        = "{{ans_environment}}-{{ans_app_name}}-elb-sg"
   vpc_id      = "${module.vpc.vpc_id}"

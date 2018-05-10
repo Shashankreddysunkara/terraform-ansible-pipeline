@@ -1,6 +1,6 @@
 module "elb" {
-  source  = "terraform-aws-modules/elb/aws"
-  version = "1.2.0"
+  source  = "{{ ans_aws_elb_module_source }}"
+  version = "{{ ans_aws_elb_module_version }}"
 
   name = "{{ans_environment}}-{{ans_app_name}}-elb"
 

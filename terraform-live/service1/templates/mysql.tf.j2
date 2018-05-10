@@ -1,6 +1,6 @@
 module "db" {
-  source  = "terraform-aws-modules/rds/aws"
-  version = "1.15.0"
+  source  = "{{ ans_aws_rds_module_source }}"
+  version = "{{ ans_aws_rds_module_version }}"
 
   identifier = "{{ans_environment}}-{{ans_app_name}}-mysql-dbinstance1"
 

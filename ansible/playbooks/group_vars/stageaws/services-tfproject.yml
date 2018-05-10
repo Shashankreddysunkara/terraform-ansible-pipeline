@@ -1,0 +1,51 @@
+---
+ans_tf_services:
+  - name: "service1"
+    terraform_projectpath: "../../terraform-live/service1"
+    terraform_planname: "../../terraform-live/service1/service1_plan.out"
+    destroy: false
+    aws_rds_module_source: "terraform-aws-modules/rds/aws"
+    aws_rds_module_version: "1.15.0"
+    aws_sg_module_source: "terraform-aws-modules/security-group/aws"
+    aws_sg_module_version: "1.22.0"
+    aws_elb_module_source: "terraform-aws-modules/elb/aws"
+    aws_elb_module_version: "1.2.0"
+    aws_ec2_module_source: "terraform-aws-modules/ec2-instance/aws"
+    aws_ec2_module_version: "1.5.0"
+    aws_asg_module_source: "terraform-aws-modules/autoscaling/aws"
+    aws_asg_module_version: "2.3.0"
+    aws_vpc_module_source: "terraform-aws-modules/vpc/aws"
+    aws_vpc_module_version: "1.30.0"
+    aws_accounts:
+      - account: "1234"
+        aws_regions:
+          - "us-east1"
+          - "ca-central-1"
+      - account: 5436"
+        aws_regions:
+          - "us-east-1"
+
+  - name: "service2"
+    terraform_projectpath: "../../terraform-live/service2"
+    terraform_planname: "../../terraform-live/service1/service2_plan.out"
+    destroy: false
+    aws_rds_module_source: "terraform-aws-modules/rds/aws"
+    aws_rds_module_version: "1.15.0"
+    aws_sg_module_source: "terraform-aws-modules/security-group/aws"
+    aws_sg_module_version: "1.22.0"
+    aws_elb_module_source: "terraform-aws-modules/elb/aws"
+    aws_elb_module_version: "1.2.0"
+    aws_ec2_module_source: "terraform-aws-modules/ec2-instance/aws"
+    aws_ec2_module_version: "1.5.0"
+    aws_asg_module_source: "terraform-aws-modules/autoscaling/aws"
+    aws_asg_module_version: "2.3.0"
+    aws_vpc_module_source: "terraform-aws-modules/vpc/aws"
+    aws_vpc_module_version: "1.30.0"
+    aws_accounts:
+      - account: "1234"
+        aws_regions:
+          - "us-east1"
+          - "ca-central-1"
+      - account: 5436"
+        aws_regions:
+          - "us-east-1"

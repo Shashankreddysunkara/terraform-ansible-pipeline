@@ -23,8 +23,8 @@ data "aws_ami" "amazon_linux" {
 ######
 
 module "autoscaling" {
-  source  = "terraform-aws-modules/autoscaling/aws"
-  version = "2.3.0"
+  source  = "{{ ans_aws_asg_module_source }}"
+  version = "{{ ans_aws_asg_module_version }}"
 
   name = "{{ans_environment}}-{{ans_app_name}}-webserver"
 

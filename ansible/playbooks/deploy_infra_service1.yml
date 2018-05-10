@@ -1,6 +1,6 @@
 ---
 - name: Infra | Provision Infra Terraform
-  hosts: all
+  hosts: local
 
   tasks:
 
