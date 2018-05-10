@@ -1,0 +1,37 @@
+---
+- name: Infra | Provision Infra Terraform
+  hosts: all
+
+  tasks:
+
+    - name: create x template
+      template: 
+        src: "{{ item }}"
+        dest: ../../terraform-live/service1/{{ item | basename | regex_replace('.j2','') }}
+      with_fileglob:
+        - ../../terraform-live/service1/templates/*.j2
+      delegate_to: localhost
+
+    - name: Deploy Infra | Terraform Plan
+      terraform:
+        project_path: "../../terraform-live/service1"
+        plan_file: "./plan.out"
+        force_init: True
+        state: planned
+      delegate_to: localhost
+      register: terraformoutputplan
+
+    - name: Display OutPut
+      debug: var=terraformoutputplan
+
+    - name: Deploy Infra | Terraform Apply
+      terraform:
+        project_path: "../../terraform-live/service1"
+        plan_file: "./plan.out"
+        force_init: True
+        state: present
+      delegate_to: localhost
+      register: terraformoutputapply
+
+    - name: Display OutPut
+      debug: var=terraformoutputapply

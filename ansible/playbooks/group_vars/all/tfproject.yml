@@ -1,0 +1,4 @@
+---
+ans_terraform_projectpath: "../../terraform-live/service1"
+ans_terraform_planname: "../../terraform-live/service1/plan.out"
+ans_destroy: false

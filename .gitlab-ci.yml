@@ -10,43 +10,20 @@ before_script:
   - ansible --version
 
 stages:
-  - validate
-  - plan
-  - deploy
-
-validate:
-  stage: validate
-  script:
-    - echo "validate"
-  only:
-    - master
-
-plan:
-  stage: plan
-  script:
-    - pushd .
-    - cd ansible
-    - chmod +x scripts/*
-    - ./scripts/plan_service1.sh 
-    - popd
-  artifacts:
-    name: plan
-    paths:
-      - $CI_PROJECT_DIR/terraform-live/service1/plan*
-  when: on_success
-  only:
-    - master  
+  - validate-plan-deploy
 
 deploy_staging:
-  stage: deploy
+  stage: validate-plan-deploy
   script:
     - pushd .
     - cd ansible
     - chmod +x scripts/*
     - ./scripts/deploy_service1.sh
     - popd
-  dependencies:
-    - plan
+  artifacts:
+    name: plan
+    paths:
+      - $CI_PROJECT_DIR/terraform-live/service1/plan*
   when: on_success
   environment:
     name: staging
