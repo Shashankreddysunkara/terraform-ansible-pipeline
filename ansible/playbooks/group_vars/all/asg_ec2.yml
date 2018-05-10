@@ -1,0 +1,9 @@
+---
+ans_asgec2_key_name: "ansible"
+ans_asgec2_instance_type: "t2.micro"
+ans_asgec2_root_volume_size: 20
+ans_asgec2_volume_size: 20
+
+ans_asgec2_min_size: 0
+ans_asgec2_max_size: 1
+ans_asgec2_desired_capacity: 1

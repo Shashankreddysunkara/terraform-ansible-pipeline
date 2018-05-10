@@ -1,0 +1,38 @@
+module "db" {
+  source  = "terraform-aws-modules/rds/aws"
+  version = "1.15.0"
+
+  identifier = "{{ans_environment}}-{{ans_app_name}}-mysql-dbinstance1"
+
+  engine            = "{{ ans_rds_engine }}"
+  engine_version    = "{{ ans_rds_engine_version }}"
+  instance_class    = "{{ ans_rds_instance_class }}"
+  allocated_storage = {{ ans_rds_allocated_storage }}
+  storage_encrypted = "{{ ans_rds_storage_encrypted }}"
+
+  name     = "{{ans_environment}}_{{ans_app_name}}_mysql_dbinstance1"
+  username = "{{ ans_rds_dbuser }}"
+  password = "{{ ans_rds_dbpassword }}"
+  port     = "{{ ans_rds_dbport }}"
+
+  vpc_security_group_ids = ["${module.security-group-mysql.this_security_group_id}"]
+
+  maintenance_window = "{{ ans_rds_maintenance_window }}"
+  backup_window      = "{{ ans_rds_backup_window }}"
+
+  # disable backups to create DB faster
+  backup_retention_period = {{ ans_rds_backup_retention_period }}
+
+  tags = {
+    Owner       = "{{ ans_aws_tag_owner }}"
+    Environment = "{{ ans_aws_tag_environment }}"
+  }
+
+  # DB subnet group
+  subnet_ids = ["${module.vpc.private_subnets}"] 
+  # DB parameter group
+  family = "{{ ans_rds_dbparmgroup }}"
+
+  # Snapshot name upon DB deletion
+  final_snapshot_identifier = "{{ans_environment}}-{{ans_app_name}}-mysql-dbinstance1"
+}

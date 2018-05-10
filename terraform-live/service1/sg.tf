@@ -2,12 +2,12 @@ module "security-group-mysql" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "1.22.0"
 
-  name        = "${var.environment}-${var.app}-mysql-sg"
+  name        = "stage-app1-mysql-sg"
   vpc_id      = "${module.vpc.vpc_id}"
 
   tags = {
-    Owner       = "${var.tag_owner}"
-    Environment = "${var.environment}"
+    Owner       = "arlindo santos"
+    Environment = "stage"
   }
 
   # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
@@ -23,12 +23,12 @@ module "security-group-ssh" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "1.22.0"
 
-  name        = "${var.environment}-${var.app}-ssh-sg"
+  name        = "stage-app1-ssh-sg"
   vpc_id      = "${module.vpc.vpc_id}"
 
   tags = {
-    Owner       = "${var.tag_owner}"
-    Environment = "${var.environment}"
+    Owner       = "arlindo santos"
+    Environment = "stage"
   }
 
   # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
@@ -44,12 +44,12 @@ module "security-group-app" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "1.22.0"
 
-  name        = "${var.environment}-${var.app}-app-sg"
+  name        = "stage-app1-app-sg"
   vpc_id      = "${module.vpc.vpc_id}"
 
   tags = {
-    Owner       = "${var.tag_owner}"
-    Environment = "${var.environment}"
+    Owner       = "arlindo santos"
+    Environment = "stage"
   }
 
   # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
@@ -70,12 +70,12 @@ module "security-group-elb" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "1.22.0"
 
-  name        = "${var.environment}-${var.app}-elb-sg"
+  name        = "stage-app1-elb-sg"
   vpc_id      = "${module.vpc.vpc_id}"
 
   tags = {
-    Owner       = "${var.tag_owner}"
-    Environment = "${var.environment}"
+    Owner       = "arlindo santos"
+    Environment = "stage"
   }
 
   # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)

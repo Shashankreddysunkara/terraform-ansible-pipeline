@@ -2,17 +2,16 @@ module "db" {
   source  = "terraform-aws-modules/rds/aws"
   version = "1.15.0"
 
-  identifier = "${var.environment}-${var.app}-mysql-dbinstance1"
+  identifier = "stage-app1-mysql-dbinstance1"
 
   engine            = "mysql"
   engine_version    = "5.7.19"
   instance_class    = "db.t2.large"
   allocated_storage = 5
-  storage_encrypted = false
+  storage_encrypted = "False"
 
-  # kms_key_id        = "arm:aws:kms:<region>:<accound id>:key/<kms key id>"
-  name     = "${var.environment}_${var.app}_mysql_dbinstance1"
-  username = "user"
+  name     = "stage_app1_mysql_dbinstance1"
+  username = "dbuser1"
   password = "YourPwdShouldBeLongAndSecure!"
   port     = "3306"
 
@@ -25,9 +24,8 @@ module "db" {
   backup_retention_period = 0
 
   tags = {
-    Owner       = "${var.tag_owner}"
-    Environment = "${var.environment}"
-    StopStartSchedule = "xxx"
+    Owner       = "arlindo santos"
+    Environment = "stage"
   }
 
   # DB subnet group
@@ -36,5 +34,5 @@ module "db" {
   family = "mysql5.7"
 
   # Snapshot name upon DB deletion
-  final_snapshot_identifier = "${var.environment}-${var.app}-mysql-dbinstance1"
+  final_snapshot_identifier = "stage-app1-mysql-dbinstance1"
 }

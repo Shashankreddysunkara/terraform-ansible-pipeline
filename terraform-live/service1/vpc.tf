@@ -2,7 +2,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "1.30.0"
 
-  name = "vpc-non-prod"
+  name = "vpc-stage"
 
   cidr = "10.10.0.0/16"
 
@@ -22,6 +22,6 @@ module "vpc" {
 
   tags = {
     Owner       = "arlindo santos"
-    Environment = "non-prod"
+    Environment = "stage"
   }
 }

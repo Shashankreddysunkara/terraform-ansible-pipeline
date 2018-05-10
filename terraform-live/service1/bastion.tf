@@ -2,7 +2,7 @@ module "ec2-instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "1.5.0"
 
-  name                        = "${var.environment}-${var.app}-bastion"
+  name                        = "stage-app1-bastion"
   ami                         = "${data.aws_ami.amazon_linux.id}"
   key_name                    = "ansible"
   instance_type               = "t2.micro"

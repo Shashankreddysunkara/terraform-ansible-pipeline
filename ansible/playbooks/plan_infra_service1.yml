@@ -7,18 +7,16 @@
     - name: create x template
       template: 
         src: "{{ item }}"
-        dest: ../../terraform-live/stage/us-east-1/service1/{{ item | basename | regex_replace('.j2','') }}
+        dest: ../../terraform-live/service1/{{ item | basename | regex_replace('.j2','') }}
       with_fileglob:
-        - ../../terraform-live/stage/us-east-1/service1/*.j2
+        - ../../terraform-live/service1/templates/*.j2
       delegate_to: localhost
 
     - name: Deploy Infra | Terraform Plan
       terraform:
-        project_path: "../../terraform-live/stage/us-east-1/service1"
+        project_path: "../../terraform-live/service1"
         plan_file: "./plan.out"
         force_init: True
-        variables_file: 
-          - "../../stage.tfvars"
         state: planned
       delegate_to: localhost
       register: terraformoutputplan
@@ -29,5 +27,5 @@
     - name: Deploy Infra | Write Plan Diff to file
       copy: 
         content: "{{ terraformoutputplan.stdout }}"
-        dest: ../../terraform-live/stage/us-east-1/service1/plan_diff.txt
+        dest: ../../terraform-live/service1/plan_diff.txt
       delegate_to: localhost

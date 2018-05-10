@@ -1,7 +1,6 @@
 image:
   name: sarlindo/terraform-ansible-docker-image
 
-
 before_script:
   - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
   - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile default
@@ -18,13 +17,13 @@ plan:
   stage: plan
   script:
     - pushd .
-    - cd ansible
-    - ansible-playbook -i "localhost," -c local playbooks/plan_infra_nonprod_vpc.yml
+    - cd ansible/scripts
+    - ./plan_service1.sh 
     - popd
   artifacts:
     name: plan
     paths:
-      - $CI_PROJECT_DIR/terraform-live/global/aws-vpc-networking/plan*
+      - $CI_PROJECT_DIR/terraform-live/service1/plan*
   only:
     - master  
 
@@ -32,8 +31,8 @@ deploy_staging:
   stage: deploy
   script:
     - pushd .
-    - cd ansible
-    - ansible-playbook -i "localhost," -c local playbooks/apply_infra_nonprod_vpc.yml
+    - cd ansible/scripts
+    - ./deploy_service1.sh
     - popd
   dependencies:
     - plan
