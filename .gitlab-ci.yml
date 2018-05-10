@@ -10,8 +10,16 @@ before_script:
   - ansible --version
 
 stages:
+  - validate
   - plan
   - deploy
+
+validate:
+  stage: validate
+  script:
+    - echo "validate"
+  only:
+    - master
 
 plan:
   stage: plan
@@ -25,6 +33,7 @@ plan:
     name: plan
     paths:
       - $CI_PROJECT_DIR/terraform-live/service1/plan*
+  when: on_success
   only:
     - master  
 
