@@ -35,6 +35,6 @@
       debug: msg="{{item.0.terraform_planname}},{{ item.1.account }}"
       with_subelements:
         - "{{ ans_tf_services }}"
-        - ans_tf_services.aws_accounts.aws_regions
+        - aws_accounts
           
           # {{ ans_tf_services }}"
