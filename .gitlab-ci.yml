@@ -27,7 +27,7 @@ plan:
     - pushd .
     - cd ansible/scripts
     - chmod +x *
-    - ./plan_service1.sh 
+    - ./scripts/plan_service1.sh 
     - popd
   artifacts:
     name: plan
@@ -43,7 +43,7 @@ deploy_staging:
     - pushd .
     - cd ansible/scripts
     - chmod +x *
-    - ./deploy_service1.sh
+    - ./scripts/deploy_service1.sh
     - popd
   dependencies:
     - plan

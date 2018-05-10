@@ -197,6 +197,7 @@ def _state_args(state_file):
 
 
 def build_plan(bin_path, project_path, state_file, variables_args=None, plan_path=None, var_files=None):
+
     if plan_path is None:
         f, plan_path = tempfile.mkstemp(suffix='.tfplan')
  
@@ -210,7 +211,7 @@ def build_plan(bin_path, project_path, state_file, variables_args=None, plan_pat
          command.extend(variables_args)
 
     rc, out, err = module.run_command(command, cwd=project_path)
-    #open("/tmp/arlindo.txt", "a").write(out)
+    #open("/tmp/arlindo.txt", "a").write(command)
 
     if rc == 0:
         # no changes
