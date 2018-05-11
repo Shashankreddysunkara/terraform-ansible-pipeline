@@ -1,0 +1,12 @@
+---
+- name: Infra | Provision Infra Terraform
+  hosts: local
+
+  tasks:
+
+    - include_tasks: tf_tasks.yml
+      with_items: 
+        - "a"
+        - "b"
+      loop_control:
+        loop_var: item_foo

@@ -1,0 +1,7 @@
+---
+ans_aws_provider_region: "ca-central-1"
+ans_aws_profile: "ansiblepersonal"
+ans_terraform_s3_state_bucket: "terraform-up-and-running-state.arlindo.ca"
+ans_terraform_aws_vpc_networking_nonprod_state_key: "{{ ans_aws_account }}/{{ ans_app_name }}/{{ ans_aws_provider_region }}/{{ ans_environment }}/terraform.tfstate"
+ans_terraform_state_aws_region: "us-east-1"
+ans_terraform_dynamodb_locktable_name: "terraform-locks"
