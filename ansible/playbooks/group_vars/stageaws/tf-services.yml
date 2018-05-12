@@ -24,7 +24,7 @@ ans_tf_services:
     # tf project
     terraform_projectpath: "../../terraform-live/service1"
     terraform_planname: "../../terraform-live/service1/plan_service1.out"
-    destroy: true
+    destroy: false
     # rds
     aws_rds_module_source: "terraform-aws-modules/rds/aws"
     aws_rds_module_version: "1.15.0"
@@ -70,22 +70,22 @@ ans_tf_services:
 
   - name: "service2"
     # provider
-    aws_provider_region: "us-east-1"
+    aws_provider_region: "ca-central-1"
     aws_provider_profile: "ansiblepersonal"
     # state
     terraform_s3_state_bucket: "terraform-up-and-running-state.arlindo.ca"
-    terraform_aws_state_key: "{{ ans_aws_account }}/service2/us-east-1/{{ ans_environment }}/terraform.tfstate"
+    terraform_aws_state_key: "{{ ans_aws_account }}/service2/ca-central-1/{{ ans_environment }}/terraform.tfstate"
     terraform_state_aws_region: "us-east-1"
     terraform_dynamodb_locktable_name: "terraform-locks"
     # tf project
     terraform_projectpath: "../../terraform-live/service2"
     terraform_planname: "../../terraform-live/service2/plan_service2.out"
-    destroy: true
+    destroy: false
     # vpc
     aws_vpc_module_source: "terraform-aws-modules/vpc/aws"
     aws_vpc_module_version: "1.30.0"
-    aws_vpc_name: "vpc-{{ ans_environment }}-new"
+    aws_vpc_name: "vpc-{{ ans_environment }}"
     aws_vpc_cidr: "10.10.0.0/16"
-    aws_vpc_azs: '"us-east-1a", "us-east-1b"'
+    aws_vpc_azs: '"ca-central-1a", "ca-central-1b"'
     aws_vpc_private_subnets: '"10.10.3.0/24", "10.10.4.0/24"'
     aws_vpc_public_subnets: '"10.10.13.0/24", "10.10.14.0/24"'
