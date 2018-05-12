@@ -18,12 +18,12 @@ deploy_staging:
     - pushd .
     - cd ansible
     - chmod +x scripts/*
-    - ./scripts/deploy_service1.sh
+    - ./scripts/deploy_infra_services.sh
     - popd
   artifacts:
     name: plan
     paths:
-      - $CI_PROJECT_DIR/terraform-live/service1/plan*
+      - $CI_PROJECT_DIR/terraform-live/*/plan*
   when: on_success
   environment:
     name: staging

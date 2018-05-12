@@ -1,6 +1,6 @@
 module "elb" {
-  source  = "{{ ans_aws_elb_module_source }}"
-  version = "{{ ans_aws_elb_module_version }}"
+  source  = "{{ item_ans_tf_services.aws_elb_module_source }}"
+  version = "{{ item_ans_tf_services.aws_elb_module_version }}"
 
   name = "{{ans_environment}}-{{ans_app_name}}-elb"
 

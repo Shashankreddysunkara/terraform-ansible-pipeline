@@ -6,7 +6,6 @@
 
     - include_tasks: tf_tasks.yml
       with_items: 
-        - "a"
-        - "b"
+        "{{ ans_tf_services }}"
       loop_control:
-        loop_var: item_foo
+        loop_var: item_ans_tf_services
