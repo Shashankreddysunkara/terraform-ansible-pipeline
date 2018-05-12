@@ -1,6 +1,6 @@
 ---
 ans_terraform_projectpath: "../../terraform-live/service1"
-ans_terraform_planname: "../../terraform-live/service1/service1_plan.out"
+ans_terraform_planname: "../../terraform-live/service1/plan_service1.out"
 ans_destroy: false
 
 # tf modules to use and version
