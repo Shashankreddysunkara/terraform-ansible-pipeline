@@ -24,7 +24,7 @@ ans_tf_services:
     # tf project
     terraform_projectpath: "../../terraform-live/service1"
     terraform_planname: "../../terraform-live/service1/plan_service1.out"
-    destroy: false
+    destroy: true
     # rds
     aws_rds_module_source: "terraform-aws-modules/rds/aws"
     aws_rds_module_version: "1.15.0"
@@ -80,7 +80,7 @@ ans_tf_services:
     # tf project
     terraform_projectpath: "../../terraform-live/service2"
     terraform_planname: "../../terraform-live/service2/plan_service2.out"
-    destroy: false
+    destroy: true
     # vpc
     aws_vpc_module_source: "terraform-aws-modules/vpc/aws"
     aws_vpc_module_version: "1.30.0"
