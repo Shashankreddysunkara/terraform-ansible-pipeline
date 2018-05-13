@@ -1,12 +1,12 @@
 ---
 #--------------------------------------------------------------------
-# global
+# env
 #--------------------------------------------------------------------
 ans_app_name: app1
-ans_aws_tag_owner: "arlindo santos"
-ans_aws_tag_environment: "{{ ans_environment }}"
 ans_environment: stage
 ans_aws_account: awsaccount1
+ans_aws_tag_owner: "arlindo santos"
+ans_aws_tag_environment: "{{ ans_environment }}"
 
 #--------------------------------------------------------------------
 # services
