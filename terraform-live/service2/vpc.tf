@@ -2,11 +2,11 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "1.30.0"
 
-  name = "vpc-stage-new"
+  name = "vpc-stage"
 
   cidr = "10.10.0.0/16"
 
-  azs                 = ["us-east-1a", "us-east-1b"]
+  azs                 = ["ca-central-1a", "ca-central-1b"]
   private_subnets     = ["10.10.3.0/24", "10.10.4.0/24"]
   public_subnets      = ["10.10.13.0/24", "10.10.14.0/24"]
 

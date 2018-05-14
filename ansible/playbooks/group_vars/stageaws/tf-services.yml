@@ -1,6 +1,6 @@
 ---
 #--------------------------------------------------------------------
-# env
+# global
 #--------------------------------------------------------------------
 ans_app_name: app1
 ans_environment: stage
@@ -43,6 +43,32 @@ ans_tf_services:
     # sg
     aws_sg_module_source: "terraform-aws-modules/security-group/aws"
     aws_sg_module_version: "1.22.0"
+    aws_sg_security_groups:
+       - name: "{{ ans_environment}}-{{ ans_app_name }}-ssh-SG"
+         modulename: "security-group-ssh"
+         desc: "This sg is for ssh access"
+         ingress_with_cidr_rules:
+           - rule: "ssh-tcp"
+             cidr_blocks: "0.0.0.0/0"
+       - name: "{{ ans_environment}}-{{ ans_app_name }}-mysql-SG"
+         modulename: "security-group-mysql"
+         desc: "This sg is for mysql"
+         ingress_with_cidr_rules:
+           - rule: "mysql-tcp"
+             cidr_blocks: "0.0.0.0/0"
+       - name: "{{ ans_environment}}-{{ ans_app_name }}-elb-SG"
+         modulename: "security-group-elb"
+         desc: "This sg is for elb"
+         ingress_with_cidr_rules:
+           - rule: "http-80-tcp"
+             cidr_blocks: "0.0.0.0/0"
+       - name: "{{ ans_environment}}-{{ ans_app_name }}-app-SG"
+         modulename: "security-group-app"
+         desc: "This sg is for app"
+         ingress_with_cidr_rules:
+           - rule: "http-80-tcp"
+             cidr_blocks: "0.0.0.0/0"
+
     # elb
     aws_elb_module_source: "terraform-aws-modules/elb/aws"
     aws_elb_module_version: "1.2.0"

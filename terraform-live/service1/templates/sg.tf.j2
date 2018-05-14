@@ -1,8 +1,9 @@
-module "security-group-mysql" {
+{% for sg in item_ans_tf_services.aws_sg_security_groups %} 
+module "{{sg.modulename}}" {
   source  = "{{ item_ans_tf_services.aws_sg_module_source }}"
   version = "{{ item_ans_tf_services.aws_sg_module_version }}"
 
-  name        = "{{ans_environment}}-{{ans_app_name}}-mysql-sg"
+  name        = "{{ sg.name }}"
   vpc_id      = "${module.vpc.vpc_id}"
 
   tags = {
@@ -12,78 +13,14 @@ module "security-group-mysql" {
 
   # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
   ingress_with_cidr_blocks = [
-    {
-      rule        = "mysql-tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-  ]
+    {% for ingr_cidr_rule in sg.ingress_with_cidr_rules %}
+     { 
+       rule = "{{ ingr_cidr_rule.rule }}"
+       cidr_blocks = "{{ ingr_cidr_rule.cidr_blocks }}"
+     },
+    {% endfor %}
+   ]
   egress_rules = ["all-all"]
 }
-module "security-group-ssh" {
-  source  = "{{ item_ans_tf_services.aws_sg_module_source }}"
-  version = "{{ item_ans_tf_services.aws_sg_module_version }}"
 
-  name        = "{{ans_environment}}-{{ans_app_name}}-ssh-sg"
-  vpc_id      = "${module.vpc.vpc_id}"
-
-  tags = {
-    Owner       = "{{ ans_aws_tag_owner }}"
-    Environment = "{{ ans_aws_tag_environment }}"
-  }
-
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
-  ingress_with_cidr_blocks = [
-    {
-      rule        = "ssh-tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-  ]
- egress_rules = ["all-all"]
-}
-module "security-group-app" {
-  source  = "{{ item_ans_tf_services.aws_sg_module_source }}"
-  version = "{{ item_ans_tf_services.aws_sg_module_version }}"
-
-  name        = "{{ans_environment}}-{{ans_app_name}}-app-sg"
-  vpc_id      = "${module.vpc.vpc_id}"
-
-  tags = {
-    Owner       = "{{ ans_aws_tag_owner }}"
-    Environment = "{{ ans_aws_tag_environment }}"
-  }
-
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
-  ingress_with_cidr_blocks = [
-    {
-      rule        = "http-80-tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      rule        = "ssh-tcp"
-      cidr_blocks  = "0.0.0.0/0"
-    },
-  ]
- egress_rules = ["all-all"]
-}
-
-module "security-group-elb" {
-  source  = "{{ item_ans_tf_services.aws_sg_module_source }}"
-  version = "{{ item_ans_tf_services.aws_sg_module_version }}"
-
-  name        = "{{ans_environment}}-{{ans_app_name}}-elb-sg"
-  vpc_id      = "${module.vpc.vpc_id}"
-
-  tags = {
-    Owner       = "{{ ans_aws_tag_owner }}"
-    Environment = "{{ ans_aws_tag_environment }}"
-  }
-
-  # Open to CIDRs blocks (rule or from_port+to_port+protocol+description)
-  ingress_with_cidr_blocks = [
-    {
-      rule        = "http-80-tcp"
-      cidr_blocks = "0.0.0.0/0"
-    },
-  ]
-  egress_rules = ["all-all"]
-}
+{% endfor %}
