@@ -72,6 +72,18 @@ ans_tf_services:
     # elb
     aws_elb_module_source: "terraform-aws-modules/elb/aws"
     aws_elb_module_version: "1.2.0"
+    aws_elb_internal: false
+    aws_elb_listeners:
+      - instance_port: "80"
+        instance_protocol: "HTTP"
+        lb_port: "80"
+        lb_protocol: "HTTP"
+    aws_elb_health_checks:
+      - target: "HTTP:80/"
+        interval: 30
+        healthy_threshold: 2
+        unhealthy_threshold: 2
+        timeout: 5
     # ec2
     aws_ec2_module_source: "terraform-aws-modules/ec2-instance/aws"
     aws_ec2_module_version: "1.5.0"
@@ -93,6 +105,12 @@ ans_tf_services:
     aws_vpc_azs: '"us-east-1a", "us-east-1b"'
     aws_vpc_private_subnets: '"10.10.1.0/24", "10.10.2.0/24"'
     aws_vpc_public_subnets: '"10.10.11.0/24", "10.10.12.0/24"'
+    aws_vpc_create_database_subnet_group: false
+    aws_vpc_enable_nat_gateway: true
+    aws_vpc_enable_vpn_gateway: false
+    aws_vpc_enable_s3_endpoint: true
+    aws_vpc_enable_dynamodb_endpoint: true
+    aws_vpc_enable_dhcp_options: false
 
   - name: "service2"
     # provider
@@ -115,3 +133,9 @@ ans_tf_services:
     aws_vpc_azs: '"ca-central-1a", "ca-central-1b"'
     aws_vpc_private_subnets: '"10.10.3.0/24", "10.10.4.0/24"'
     aws_vpc_public_subnets: '"10.10.13.0/24", "10.10.14.0/24"'
+    aws_vpc_create_database_subnet_group: false
+    aws_vpc_enable_nat_gateway: true
+    aws_vpc_enable_vpn_gateway: false
+    aws_vpc_enable_s3_endpoint: true
+    aws_vpc_enable_dynamodb_endpoint: true
+    aws_vpc_enable_dhcp_options: false
