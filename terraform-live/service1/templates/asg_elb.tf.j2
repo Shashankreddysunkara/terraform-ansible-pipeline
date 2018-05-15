@@ -1,23 +1,3 @@
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "amzn-ami-hvm-*-x86_64-gp2",
-    ]
-  }
-
-  filter {
-    name = "owner-alias"
-
-    values = [
-      "amazon",
-    ]
-  }
-}
-
 ######
 # Launch configuration and autoscaling group
 ######
@@ -31,31 +11,31 @@ module "autoscaling" {
   lc_name = "{{ans_environment}}-{{ans_app_name}}-lc"
 
   image_id                    = "${data.aws_ami.amazon_linux.id}"
-  key_name                    = "{{ item_ans_tf_services.asgec2_key_name }}"
-  instance_type               = "{{ item_ans_tf_services.asgec2_instance_type }}"
+  key_name                    = "{{ item_ans_tf_services.aws_asg_key_name }}"
+  instance_type               = "{{ item_ans_tf_services.aws_asg_instance_type }}"
   user_data                   = <<-EOF
 				#!/bin/bash
 				yum install -y nginx 
 				service nginx start
 				EOF
   security_groups             = ["${module.security-group-app.this_security_group_id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = "{{ item_ans_tf_services.aws_asg_associate_public_ip_address }}"
   load_balancers = ["${module.elb.this_elb_id}"]
 
   ebs_block_device = [
     {
-      device_name           = "/dev/xvdz"
-      volume_type           = "gp2"
-      volume_size           = "{{ item_ans_tf_services.asgec2_volume_size }}"
-      delete_on_termination = true
+      device_name           = "{{ item_ans_tf_services.aws_asg_ebs_block_device_name }}"
+      volume_type           = "{{ item_ans_tf_services.aws_asg_ebs_block_volume_type }}"
+      volume_size           = "{{ item_ans_tf_services.aws_asg_ebs_block_volume_size }}"
+      delete_on_termination = "{{ item_ans_tf_services.aws_asg_ebs_block_delete_on_termination }}"
     },
   ]
 
   root_block_device = [
     {
-      volume_size           = "{{ item_ans_tf_services.asgec2_root_volume_size }}"
-      volume_type           = "gp2"
-      delete_on_termination = true
+      volume_size           = "{{ item_ans_tf_services.aws_asg_ebs_root_volume_size }}"
+      volume_type           = "{{ item_ans_tf_services.aws_asg_ebs_root_volume_type }}"
+      delete_on_termination = "{{ item_ans_tf_services.aws_asg_ebs_root_delete_on_termination }}"
     },
   ]
 
@@ -63,10 +43,10 @@ module "autoscaling" {
   asg_name                  = "{{ans_environment}}-{{ans_app_name}}-asg"
   vpc_zone_identifier       = ["${module.vpc.private_subnets}"]
   health_check_type         = "EC2"
-  min_size                  = {{ item_ans_tf_services.asgec2_min_size }}
-  max_size                  = {{ item_ans_tf_services.asgec2_max_size }}
-  desired_capacity          = {{ item_ans_tf_services.asgec2_desired_capacity }}
-  wait_for_capacity_timeout = 0
+  min_size                  = {{ item_ans_tf_services.aws_asg_min_size }}
+  max_size                  = {{ item_ans_tf_services.aws_asg_max_size }}
+  desired_capacity          = {{ item_ans_tf_services.aws_asg_desired_capacity }}
+  wait_for_capacity_timeout = {{ item_ans_tf_services.aws_asg_wait_for_capacity_timeout }}
 
   tags = [
     {

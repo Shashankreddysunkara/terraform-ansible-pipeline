@@ -1,23 +1,3 @@
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "amzn-ami-hvm-*-x86_64-gp2",
-    ]
-  }
-
-  filter {
-    name = "owner-alias"
-
-    values = [
-      "amazon",
-    ]
-  }
-}
-
 ######
 # Launch configuration and autoscaling group
 ######
@@ -39,7 +19,7 @@ module "autoscaling" {
 				service nginx start
 				EOF
   security_groups             = ["${module.security-group-app.this_security_group_id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = "False"
   load_balancers = ["${module.elb.this_elb_id}"]
 
   ebs_block_device = [
@@ -47,7 +27,7 @@ module "autoscaling" {
       device_name           = "/dev/xvdz"
       volume_type           = "gp2"
       volume_size           = "20"
-      delete_on_termination = true
+      delete_on_termination = "True"
     },
   ]
 
@@ -55,7 +35,7 @@ module "autoscaling" {
     {
       volume_size           = "20"
       volume_type           = "gp2"
-      delete_on_termination = true
+      delete_on_termination = "True"
     },
   ]
 

@@ -4,24 +4,24 @@ module "db" {
 
   identifier = "{{ans_environment}}-{{ans_app_name}}-mysql-dbinstance1"
 
-  engine            = "{{ item_ans_tf_services.rds_engine }}"
-  engine_version    = "{{ item_ans_tf_services.rds_engine_version }}"
-  instance_class    = "{{ item_ans_tf_services.rds_instance_class }}"
-  allocated_storage = {{ item_ans_tf_services.rds_allocated_storage }}
-  storage_encrypted = "{{ item_ans_tf_services.rds_storage_encrypted }}"
+  engine            = "{{ item_ans_tf_services.aws_rds_engine }}"
+  engine_version    = "{{ item_ans_tf_services.aws_rds_engine_version }}"
+  instance_class    = "{{ item_ans_tf_services.aws_rds_instance_class }}"
+  allocated_storage = {{ item_ans_tf_services.aws_rds_allocated_storage }}
+  storage_encrypted = "{{ item_ans_tf_services.aws_rds_storage_encrypted }}"
 
   name     = "{{ans_environment}}_{{ans_app_name}}_mysql_dbinstance1"
-  username = "{{ item_ans_tf_services.rds_dbuser }}"
-  password = "{{ item_ans_tf_services.rds_dbpassword }}"
-  port     = "{{ item_ans_tf_services.rds_dbport }}"
+  username = "{{ item_ans_tf_services.aws_rds_dbuser }}"
+  password = "{{ item_ans_tf_services.aws_rds_dbpassword }}"
+  port     = "{{ item_ans_tf_services.aws_rds_dbport }}"
 
   vpc_security_group_ids = ["${module.security-group-mysql.this_security_group_id}"]
 
-  maintenance_window = "{{ item_ans_tf_services.rds_maintenance_window }}"
-  backup_window      = "{{ item_ans_tf_services.rds_backup_window }}"
+  maintenance_window = "{{ item_ans_tf_services.aws_rds_maintenance_window }}"
+  backup_window      = "{{ item_ans_tf_services.aws_rds_backup_window }}"
 
   # disable backups to create DB faster
-  backup_retention_period = {{ item_ans_tf_services.rds_backup_retention_period }}
+  backup_retention_period = {{ item_ans_tf_services.aws_rds_backup_retention_period }}
 
   tags = {
     Owner       = "{{ ans_aws_tag_owner }}"
@@ -31,7 +31,7 @@ module "db" {
   # DB subnet group
   subnet_ids = ["${module.vpc.private_subnets}"] 
   # DB parameter group
-  family = "{{ item_ans_tf_services.rds_dbparmgroup }}"
+  family = "{{ item_ans_tf_services.aws_rds_dbparmgroup }}"
 
   # Snapshot name upon DB deletion
   final_snapshot_identifier = "{{ans_environment}}-{{ans_app_name}}-mysql-dbinstance1"

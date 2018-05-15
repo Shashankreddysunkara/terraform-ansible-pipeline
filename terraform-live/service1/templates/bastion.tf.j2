@@ -1,12 +1,12 @@
 module "ec2-instance" {
-  source  = "{{ item_ans_tf_services.aws_ec2_module_source }}"
-  version = "{{ item_ans_tf_services.aws_ec2_module_version }}"
+  source  = "{{ item_ans_tf_services.aws_ec2_bastion_module_source }}"
+  version = "{{ item_ans_tf_services.aws_ec2_bastion_module_version }}"
 
   name                        = "{{ans_environment}}-{{ans_app_name}}-bastion"
   ami                         = "${data.aws_ami.amazon_linux.id}"
-  key_name                    = "{{ item_ans_tf_services.asgec2_key_name }}"
-  instance_type               = "{{ item_ans_tf_services.asgec2_instance_type }}"
+  key_name                    = "{{ item_ans_tf_services.aws_ec2_bastion_key_name }}"
+  instance_type               = "{{ item_ans_tf_services.aws_ec2_bastion_instance_type }}"
   subnet_id                   = "${element(module.vpc.public_subnets,0)}"
   vpc_security_group_ids      = ["${module.security-group-ssh.this_security_group_id}"]
-  associate_public_ip_address = true
+  associate_public_ip_address = "{{ item_ans_tf_services.aws_ec2_bastion_associate_public_ip_address }}"
 }
